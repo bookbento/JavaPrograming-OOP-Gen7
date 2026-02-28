@@ -9,9 +9,8 @@ public abstract class LibraryItem {
     protected String isbn;
     protected double price;
 
-    protected String status = "Available";
+    protected boolean isBorrowed = false;
     protected LocalDate returnDueDate;
-    protected Member borrowedBy;
 
     public LibraryItem(String title, String author, String isbn, double price) {
         this.title = title;
@@ -20,41 +19,48 @@ public abstract class LibraryItem {
         this.price = price;
     }
 
-    public String getTitle() { return title; }
-    public double getPrice() { return price; }
+    // ================= GETTERS =================
+
+    public String getTitle() {
+        return title;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getStatus() {
+        return isBorrowed ? "Borrowed" : "Available";
+    }
+
+    public LocalDate getReturnDueDate() {
+        return returnDueDate;
+    }
+
+    // ================= BORROW / RETURN =================
 
     public void checkOut(Member member) {
 
-        if ("Borrowed".equals(status)) {
-            System.out.println("Error: Item '" + title +
-                    "' is already borrowed and cannot be checked out again.");
+        if (isBorrowed) {
+            System.out.println(title + " is already borrowed.");
             return;
         }
 
-        if (!member.canBorrow()) {
-            System.out.println("Borrow request denied for member " + member.getName() + ".");
-            return;
-        }
+        isBorrowed = true;
+        returnDueDate = LocalDate.now().plusDays(7);
 
-        status = "Borrowed";
-        borrowedBy = member;
-        returnDueDate = LocalDate.now().plusDays(14);
-        member.borrowItem();
-
-        System.out.println("Item '" + title + "' has been checked out successfully.");
-        System.out.println("Item '" + title + "' has been borrowed by " + member.getName() + ".");
-        System.out.println("Return Due Date: " + returnDueDate);
+        System.out.println(title + " checked out successfully by " + member.getName());
     }
 
     public void returnItem() {
-        status = "Available";
-        borrowedBy.returnItem();
-        borrowedBy = null;
+        isBorrowed = false;
         returnDueDate = null;
-
-        System.out.println("Item '" + title + "' has been returned successfully.");
+        System.out.println(title + " returned successfully.");
     }
 
+    // ================= ABSTRACT METHODS =================
+
     public abstract void printSummary();
+
     public abstract double calculateLateFee(int daysLate);
 }

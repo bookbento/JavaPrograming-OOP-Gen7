@@ -10,6 +10,10 @@ public class PhysicalBook extends LibraryItem implements Taxable {
         this.shelfLocation = shelfLocation;
     }
 
+    public String getShelfLocation() {
+        return shelfLocation;
+    }
+
     @Override
     public void printSummary() {
         System.out.println("PHYSICAL BOOK");
@@ -18,10 +22,10 @@ public class PhysicalBook extends LibraryItem implements Taxable {
         System.out.println("- ISBN:             " + isbn);
         System.out.println("- Price:            " + price + " Baht");
         System.out.println("- Shelf Location:   " + shelfLocation);
-        System.out.println("- Status:           " + status);
+        System.out.println("- Status:           " + getStatus());
 
-        if (returnDueDate != null)
-            System.out.println("- Return Due Date:  " + returnDueDate);
+        if (getReturnDueDate() != null)
+            System.out.println("- Return Due Date:  " + getReturnDueDate());
         else
             System.out.println("- Return Due Date:  N/A (Book is available)");
         System.out.println();
