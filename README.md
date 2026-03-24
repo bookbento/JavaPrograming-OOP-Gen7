@@ -1,34 +1,176 @@
-# ☕ JavaProgramming-OOP-Gen7
+# โปรเจกต์เกม RPG ด้วยภาษา Java
 
-> Repository สำหรับเก็บงานเรียนวิชา Java Programming (OOP)
+## ภาพรวมโปรเจกต์
 
----
-
-## 📌 Project Structure
-
-โครงสร้างของ Repository นี้ถูกจัดการดังนี้:
-
-### 🔹 `main` branch
-ใช้สำหรับเก็บ **Project หลัก** ที่อาจารย์มอบหมาย
-
-### 🌿 Lab Branches
-Lab ย่อยจะถูกแยกไว้ในแต่ละ branch ตามหัวข้อหรือสัปดาห์
----
-
-## 🛠 Tech Stack
-
-- Java
-- IntelliJ IDEA
-- Git & GitHub
+โปรเจกต์นี้เป็นเกม RPG แบบง่าย พัฒนาด้วยภาษา Java โดยใช้แนวคิด Object-Oriented Programming (OOP) และสร้างหน้าจอด้วย Java Swing (GUI)
+ผู้เล่นสามารถควบคุมตัวละคร ต่อสู้กับศัตรู ใช้ไอเท็ม และบันทึก/โหลดเกมได้
 
 ---
 
-## 🚀 How to Use
+## วิธีการรันโปรแกรม
 
-Clone repository:
+### ความต้องการของระบบ
+
+* Java JDK เวอร์ชัน 8 ขึ้นไป
+* โปรแกรม IDE เช่น IntelliJ IDEA (แนะนำ)
+
+### ▶️ วิธีรัน
+
+1. แตกไฟล์โปรเจกต์
+2. เปิดโปรเจกต์ด้วย IntelliJ IDEA
+3. ไปที่ไฟล์ `Main.java`
+4. กด Run เพื่อเริ่มโปรแกรม
+
+หรือใช้ Command Line:
 
 ```bash
-git clone https://github.com/bookbento/JavaPrograming-OOP-Gen7.git
+javac *.java
+java Main
+```
 
-นาย ศรัญภัทร แสงปัก 672110161
-นาย ยศัสวิน ปัญญาไหว 672110242
+---
+
+## ฟีเจอร์ของโปรแกรม
+
+* มีหน้าจอ GUI (Java Swing)
+* ระบบต่อสู้แบบ Turn-based
+* มีตัวละครหลายประเภท (Hero, Monster)
+* มีระบบใช้ไอเท็ม (Health Potion)
+* บันทึก/โหลดเกม (ไฟล์ CSV)
+* มีสถานะผิดปกติ (เช่น stun, curse)
+* มี game loop และเงื่อนไขจบเกม
+
+---
+
+## แนวคิด OOP ที่ใช้
+
+| แนวคิด      | การนำไปใช้                                |
+| ----------- | ----------------------------------------- |
+| Class       | Hero, Monster, Unit                       |
+| Inheritance | Hero extends Unit, Monster extends Unit   |
+| Interface   | Damageable, Consumable                    |
+| Overriding  | เมธอด takeDamage(), getUnitType()         |
+| Overloading | takeDamage(int), takeDamage(int, boolean) |
+
+---
+
+## โครงสร้างโปรเจกต์
+
+```
+/project
+│── Main.java
+│── Unit.java
+│── Hero.java
+│── Monster.java
+│── Obstacle.java
+│── Damageable.java
+│── Consumable.java
+│── HealthPotion.java
+│── SaveManager.java
+│── GamePanel.java
+│── BattlePanel.java
+```
+
+---
+
+## การจัดการข้อมูล
+
+* เก็บข้อมูลในหน่วยความจำด้วย `List<Unit>`
+* บันทึกข้อมูลลงไฟล์ CSV (`savegame.csv`)
+* ใช้คลาส `SaveManager` ในการจัดการ save/load
+
+---
+
+## การตรวจสอบข้อมูล (Input Validation)
+
+* ไม่สามารถโจมตีเป้าหมายที่ตายแล้ว
+* ไม่สามารถใช้ไอเท็มกับตัวละครที่ตายแล้ว
+* ตรวจสอบความถูกต้องของการเลือก target
+* ใช้ try-catch สำหรับจัดการ error จากไฟล์
+
+---
+
+## ระบบเกม
+
+### ระบบต่อสู้
+
+* ผู้เล่นสามารถโจมตีศัตรู
+* ตัวละครสามารถรับดาเมจ
+* ตรวจสอบสถานะ (ยังมีชีวิต / ตาย)
+* มีสถานะผิดปกติ เช่น stun, curse
+
+### ระบบไอเท็ม
+
+* Health Potion (ไอเท็มใช้แล้วหมด)
+
+  * ฟื้นฟู HP
+  * ไม่สามารถใช้กับตัวละครที่ตายแล้ว
+
+---
+
+## 👥 ตัวละครในเกม
+
+### สายอาชีพ (Classes)
+
+* Warrior (HP สูง โจมตีแรง)
+* Mage (HP ต่ำกว่า แต่มีความสามารถพิเศษ)
+
+### เป้าหมาย (Targets)
+
+* ตัวละคร (Hero / Monster)
+* วัตถุ (Obstacle)
+
+---
+
+## 🔄 Game Loop
+
+1. เริ่มเกม
+2. ผู้เล่นเลือก action (โจมตี / ใช้ไอเท็ม)
+3. ศัตรูโจมตี
+4. วนซ้ำจนจบเกม
+
+---
+
+## 📖 Use Cases
+
+1. **เริ่มเกม (Start Game)**
+   ผู้เล่นเปิดเกมและเข้าสู่เมนูหลัก
+
+2. **โจมตีศัตรู (Attack Enemy)**
+   ผู้เล่นเลือกเป้าหมายและโจมตี
+
+3. **ใช้ไอเท็ม (Use Item)**
+   ผู้เล่นใช้ Health Potion เพื่อฟื้น HP
+
+4. **ตาของศัตรู (Enemy Turn)**
+   ศัตรูโจมตีผู้เล่นอัตโนมัติ
+
+5. **บันทึกเกม (Save Game)**
+   ผู้เล่นบันทึกสถานะเกมลงไฟล์
+
+---
+
+## 🏁 เงื่อนไขจบเกม
+
+* ✅ ชนะ: ศัตรูทั้งหมดถูกกำจัด
+* ❌ แพ้: ตัวละครผู้เล่น HP เหลือ 0
+
+---
+
+## 🧾 หมายเหตุ
+
+* โปรเจกต์นี้จัดทำขึ้นเพื่อการศึกษา
+* เน้นการประยุกต์ใช้ OOP ในสถานการณ์จริง
+* สามารถพัฒนาต่อยอดได้ เช่น:
+
+  * ระบบสกิล
+  * ระบบ inventory
+  * เพิ่มศัตรูหรือด่าน
+
+---
+
+## 👨‍💻 ผู้พัฒนา
+
+* 1: [672110161 ศรัญภัทร แสงปัก]
+* 2: [672110242 ยศัสวิน ปัญญาไหว]
+* รายวิชา: Object-Oriented Programming
