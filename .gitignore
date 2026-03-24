@@ -1,44 +1,29 @@
-# IDE
-.idea/
-.vscode/
-.eclipse/
-*.swp
-*.swo
-*~
-
-# Build
+### IntelliJ IDEA ###
 out/
-target/
-build/
-dist/
-*.class
-*.jar
-*.war
+!**/src/main/**/out/
+!**/src/test/**/out/
 
-# Gradle
-.gradle/
-
-# Maven
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-.mvn/
-
-# OS
-.DS_Store
-Thumbs.db
-*.log
-
-# Java
-*.classpath
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
 .project
-.settings/
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
-# Misc
-*.iml
-*.iws
-*.ipr
-.env
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store

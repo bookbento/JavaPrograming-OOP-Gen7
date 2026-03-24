@@ -29,3 +29,6 @@ Clone repository:
 
 ```bash
 git clone https://github.com/bookbento/JavaPrograming-OOP-Gen7.git
+
+นาย ศรัญภัทร แสงปัก 672110161
+นาย ยศัสวิน ปัญญาไหว 672110242
